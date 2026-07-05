@@ -10,11 +10,11 @@ Each backend is a standalone implementation written directly for its target plat
 
 | Backend | Platform | Repository | Status |
 |---|---|---|---|
-| QuixiCore CUDA | NVIDIA CUDA, Ampere+ | `QuixiAI/quixicore-cuda` | Active |
-| QuixiCore Metal | Apple Silicon / Metal | `QuixiAI/quixicore-metal` | Active |
-| QuixiCore ROCm | AMD ROCm / CDNA2-4 | `QuixiAI/quixicore-rocm` | Planned |
-| QuixiCore XPU | Intel GPU / oneAPI / SYCL | `QuixiAI/quixicore-xpu` | Planned |
-| QuixiCore Gaudi | Intel Gaudi2-3 / HPU | `QuixiAI/quixicore-gaudi` | Planned |
+| QuixiCore CUDA | NVIDIA CUDA, Ampere+ | [QuixiAI/QuixiCore-CUDA](https://github.com/QuixiAI/QuixiCore-CUDA) | Active |
+| QuixiCore Metal | Apple Silicon / Metal | [QuixiAI/QuixiCore-Metal](https://github.com/QuixiAI/QuixiCore-Metal) | Active |
+| QuixiCore ROCm | AMD ROCm / CDNA2-4 | [QuixiAI/QuixiCore-ROCm](https://github.com/QuixiAI/QuixiCore-ROCm) | Active |
+| QuixiCore XPU | Intel GPU / oneAPI / SYCL | [QuixiAI/QuixiCore-XPU](https://github.com/QuixiAI/QuixiCore-XPU) | Planned |
+| QuixiCore Gaudi | Intel Gaudi2-3 / HPU | [QuixiAI/QuixiCore-Gaudi](https://github.com/QuixiAI/QuixiCore-Gaudi) | Planned |
 
 ## Design Philosophy
 
@@ -25,6 +25,12 @@ QuixiCore is built around one principle:
 CUDA kernels should be written like CUDA kernels. Metal kernels should be written like Metal kernels. ROCm kernels should be written like ROCm kernels. XPU kernels should be written for Intel GPU tooling. Gaudi kernels should be written for the Gaudi HPU/TPC stack.
 
 The shared layer is not source code. The shared layer is the definition of what each backend must implement.
+
+## Backend Relationship
+
+The umbrella repository links to backend repositories but does not vendor them.
+
+QuixiCore does not use git submodules. Each backend declares the QuixiCore contract version it implements using backend metadata, and implementation work happens in that backend repository.
 
 ## Repository Role
 
@@ -39,3 +45,6 @@ This repository is the umbrella contract repository for the QuixiCore family. It
 
 It intentionally does not contain backend implementation code, shared kernel code, platform bindings, or build systems.
 
+## Contract Version
+
+The initial contract target is `v0.1`. See `roadmap/v0.1-checklist.md` for the checklist that turns the current scaffold into a usable compatibility target.
