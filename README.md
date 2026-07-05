@@ -8,13 +8,13 @@ Each backend is a standalone implementation written directly for its target plat
 
 ## Backends
 
-| Backend | Platform | Repository | Status |
-|---|---|---|---|
-| QuixiCore CUDA | NVIDIA CUDA, Ampere+ | [QuixiAI/QuixiCore-CUDA](https://github.com/QuixiAI/QuixiCore-CUDA) | Active |
-| QuixiCore Metal | Apple Silicon / Metal | [QuixiAI/QuixiCore-Metal](https://github.com/QuixiAI/QuixiCore-Metal) | Active |
-| QuixiCore ROCm | AMD ROCm / CDNA2-4 | [QuixiAI/QuixiCore-ROCm](https://github.com/QuixiAI/QuixiCore-ROCm) | Active |
-| QuixiCore XPU | Intel GPU / oneAPI / SYCL | [QuixiAI/QuixiCore-XPU](https://github.com/QuixiAI/QuixiCore-XPU) | Planned |
-| QuixiCore Gaudi | Intel Gaudi2-3 / HPU | [QuixiAI/QuixiCore-Gaudi](https://github.com/QuixiAI/QuixiCore-Gaudi) | Planned |
+| Backend | Platform | Repository |
+|---|---|---|
+| QuixiCore CUDA | NVIDIA CUDA, Ampere+ | [QuixiAI/QuixiCore-CUDA](https://github.com/QuixiAI/QuixiCore-CUDA) |
+| QuixiCore Metal | Apple Silicon / Metal | [QuixiAI/QuixiCore-Metal](https://github.com/QuixiAI/QuixiCore-Metal) |
+| QuixiCore ROCm | AMD ROCm / CDNA2-4 | [QuixiAI/QuixiCore-ROCm](https://github.com/QuixiAI/QuixiCore-ROCm) |
+| QuixiCore XPU | Intel GPU / oneAPI / SYCL | [QuixiAI/QuixiCore-XPU](https://github.com/QuixiAI/QuixiCore-XPU) |
+| QuixiCore Gaudi | Intel Gaudi2-3 / HPU | [QuixiAI/QuixiCore-Gaudi](https://github.com/QuixiAI/QuixiCore-Gaudi) |
 
 ## Design Philosophy
 
