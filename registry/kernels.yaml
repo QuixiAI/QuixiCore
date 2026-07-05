@@ -1,0 +1,66 @@
+kernel_families:
+  norms:
+    name: RMSNorm / LayerNorm
+    spec: specs/kernels/norms.md
+    status: active
+  softmax:
+    name: Softmax
+    spec: specs/kernels/attention.md
+    status: active
+  activations:
+    name: GELU / GLU
+    spec: specs/kernels/norms.md
+    status: active
+  causal_attention:
+    name: Causal Attention
+    spec: specs/kernels/attention.md
+    status: active
+  paged_attention:
+    name: Paged Attention
+    spec: specs/kernels/attention.md
+    status: active
+  mla_decode:
+    name: MLA Decode
+    spec: specs/kernels/attention.md
+    status: active
+  quant_gemv:
+    name: Quant GEMV
+    spec: specs/kernels/quantization.md
+    status: active
+  quant_gemm:
+    name: Quant GEMM
+    spec: specs/kernels/quantization.md
+    status: active
+  quantized_lm_head:
+    name: Quantized LM Head
+    spec: specs/kernels/quantization.md
+    status: active
+  sampling:
+    name: Sampling
+    spec: specs/kernels/sampling.md
+    status: active
+  beam_search:
+    name: Beam Search
+    spec: specs/kernels/sampling.md
+    status: active
+  speculative_decode:
+    name: Speculative Decode
+    spec: specs/kernels/sampling.md
+    status: active
+  mamba_ssd:
+    name: Mamba / SSD
+    spec: specs/kernels/mamba.md
+    status: active
+  moe_routing:
+    name: MoE Routing
+    spec: specs/kernels/moe.md
+    status: active
+  grouped_moe_gemm:
+    name: Grouped MoE GEMM
+    spec: specs/kernels/moe.md
+    status: active
+  optimizers:
+    name: Optimizers
+    spec: specs/kernels/optimizers.md
+    status: active
+

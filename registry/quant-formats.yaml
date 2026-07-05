@@ -1,0 +1,22 @@
+quant_formats:
+  gguf:
+    name: GGUF formats
+    spec: specs/formats/gguf.md
+    status: planned
+  mx:
+    name: MX formats
+    spec: specs/formats/mx-formats.md
+    status: planned
+  fp8:
+    name: FP8
+    spec: specs/formats/fp8.md
+    status: planned
+  fp4:
+    name: FP4
+    spec: specs/formats/fp4.md
+    status: planned
+  bitnet:
+    name: BitNet
+    spec: specs/formats/bitnet.md
+    status: planned
+

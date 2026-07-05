@@ -1,0 +1,27 @@
+benchmark_shapes:
+  decode_small:
+    description: Small-batch decode path for interactive inference.
+    batch: [1, 2, 4]
+    sequence: [1]
+    hidden: [2048, 4096]
+  decode_large:
+    description: Larger-batch decode path for server inference.
+    batch: [8, 16, 32]
+    sequence: [1]
+    hidden: [4096, 8192]
+  prefill:
+    description: Prefill path for prompt processing.
+    batch: [1, 4, 8]
+    sequence: [512, 2048, 8192]
+    hidden: [4096, 8192]
+  quant_matmul:
+    description: Quantized matrix/vector and matrix/matrix coverage.
+    m: [1, 16, 128]
+    n: [4096, 8192, 16384]
+    k: [4096, 8192, 16384]
+  moe:
+    description: Mixture-of-experts routing and grouped GEMM coverage.
+    tokens: [128, 1024, 4096]
+    experts: [8, 16, 64]
+    top_k: [1, 2, 4]
+

@@ -1,0 +1,34 @@
+statuses:
+  complete:
+    symbol: "✅"
+    label: complete
+    description: Implemented, tested, and expected to satisfy the current contract.
+  beta:
+    symbol: "🟡"
+    label: beta
+    description: Implemented and usable, but still subject to compatibility or performance changes.
+  in_progress:
+    symbol: "🚧"
+    label: in progress
+    description: Actively being implemented.
+  experimental:
+    symbol: "🧪"
+    label: experimental
+    description: Available for exploration, not yet part of the stable contract.
+  planned:
+    symbol: "⬜"
+    label: planned
+    description: Expected but not yet implemented.
+  unsupported:
+    symbol: "❌"
+    label: unsupported / not applicable
+    description: Not planned for this backend or not meaningful for the platform.
+
+backend_statuses:
+  active:
+    description: Backend repository is active.
+  planned:
+    description: Backend repository is planned.
+  archived:
+    description: Backend repository is no longer active.
+

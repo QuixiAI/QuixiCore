@@ -1,0 +1,61 @@
+backends:
+  cuda:
+    name: QuixiCore CUDA
+    repo: QuixiAI/quixicore-cuda
+    platform: NVIDIA CUDA
+    description: Native NVIDIA implementation for consumer and datacenter GPUs starting from Ampere.
+    min_arch: sm80
+    targets:
+      - sm80
+      - sm86
+      - sm89
+      - sm90
+      - sm100
+    status: active
+
+  metal:
+    name: QuixiCore Metal
+    repo: QuixiAI/quixicore-metal
+    platform: Apple Metal
+    description: Native Apple Silicon implementation using Metal, MLX, and PyTorch MPS integration.
+    min_arch: apple_m1
+    targets:
+      - apple_m1
+      - apple_m2
+      - apple_m3
+      - apple_m4
+    status: active
+
+  rocm:
+    name: QuixiCore ROCm
+    repo: QuixiAI/quixicore-rocm
+    platform: AMD ROCm
+    description: Native AMD implementation for CDNA accelerators.
+    min_arch: cdna2
+    targets:
+      - cdna2
+      - cdna3
+      - cdna4
+    status: planned
+
+  xpu:
+    name: QuixiCore XPU
+    repo: QuixiAI/quixicore-xpu
+    platform: Intel XPU
+    description: Native Intel GPU implementation using the oneAPI/SYCL/Level Zero ecosystem.
+    targets:
+      - intel_arc
+      - intel_data_center_gpu
+      - future_xpu
+    status: planned
+
+  gaudi:
+    name: QuixiCore Gaudi
+    repo: QuixiAI/quixicore-gaudi
+    platform: Intel Gaudi
+    description: Native Gaudi2 and Gaudi3 implementation for the HPU/SynapseAI/TPC ecosystem.
+    targets:
+      - gaudi2
+      - gaudi3
+    status: planned
+
