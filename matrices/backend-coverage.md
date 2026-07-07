@@ -2,7 +2,7 @@
 
 | Kernel Family | CUDA | Metal | ROCm | XPU | Gaudi | CPU |
 |---|---:|---:|---:|---:|---:|---:|
-| RMSNorm / LayerNorm | ✅ | ✅ | 🚧 | ⬜ | ⬜ | ⬜ |
+| RMSNorm / LayerNorm | ✅ | ✅ | 🚧 | ⬜ | ⬜ | 🚧 |
 | Softmax | ✅ | ✅ | 🚧 | ⬜ | ⬜ | ⬜ |
 | GELU / GLU | ✅ | ✅ | 🚧 | ⬜ | ⬜ | ⬜ |
 | Causal Attention | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
