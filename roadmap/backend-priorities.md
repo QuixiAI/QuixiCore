@@ -10,6 +10,6 @@
 - ROCm
 - XPU
 - Gaudi
+- CPU
 
-ROCm, XPU, and Gaudi should be scoped independently because each backend has distinct compiler, runtime, and deployment constraints.
-
+ROCm, XPU, Gaudi, and CPU should be scoped independently because each backend has distinct compiler, runtime, and deployment constraints.

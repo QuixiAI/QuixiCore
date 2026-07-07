@@ -6,9 +6,8 @@ The project is designed for native accelerator implementations that expose a con
 
 ## Canonical Design Sentence
 
-QuixiCore is one kernel library contract with five standalone native implementations: CUDA, Metal, ROCm, XPU, and Gaudi.
+QuixiCore is one kernel library contract with six standalone native implementations: CUDA, Metal, ROCm, XPU, Gaudi, and CPU.
 
 ## Motto
 
 Native implementations. Shared contract. No shared code.
-

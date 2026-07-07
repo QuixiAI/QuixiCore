@@ -8,7 +8,7 @@ QuixiCore contributions should preserve the umbrella repository boundary:
 
 ## Backend Boundaries
 
-Each backend is expected to implement the shared contract natively for its platform. A change that requires CUDA, Metal, ROCm, XPU, or Gaudi source code should be made in the corresponding backend repository.
+Each backend is expected to implement the shared contract natively for its platform. A change that requires CUDA, Metal, ROCm, XPU, Gaudi, or CPU source code should be made in the corresponding backend repository.
 
 ## Spec Changes
 
@@ -26,4 +26,3 @@ Spec changes should describe compatibility impact and whether existing backend b
 ## Status Vocabulary
 
 Use the status vocabulary from `registry/status-schema.yaml` and keep matrices consistent with it.
-

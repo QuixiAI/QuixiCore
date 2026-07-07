@@ -58,3 +58,13 @@ backends:
       - gaudi2
       - gaudi3
     status: planned
+
+  cpu:
+    name: QuixiCore CPU
+    repo: QuixiAI/QuixiCore-CPU
+    platform: CPU
+    description: Native CPU implementation for host execution, SIMD vectorization, and threaded runtimes.
+    targets:
+      - x86_64
+      - aarch64
+    status: planned

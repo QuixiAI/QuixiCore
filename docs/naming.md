@@ -16,6 +16,7 @@ QuixiAI/QuixiCore-Metal
 QuixiAI/QuixiCore-ROCm
 QuixiAI/QuixiCore-XPU
 QuixiAI/QuixiCore-Gaudi
+QuixiAI/QuixiCore-CPU
 ```
 
 Use the following backend names in user-facing documentation:
@@ -25,3 +26,4 @@ Use the following backend names in user-facing documentation:
 - QuixiCore ROCm
 - QuixiCore XPU
 - QuixiCore Gaudi
+- QuixiCore CPU

@@ -9,6 +9,7 @@ The QuixiCore backend repositories are separate first-class projects:
 | ROCm | `QuixiAI/QuixiCore-ROCm` | AMD ROCm / CDNA2-4 |
 | XPU | `QuixiAI/QuixiCore-XPU` | Intel GPU / oneAPI / SYCL / Level Zero |
 | Gaudi | `QuixiAI/QuixiCore-Gaudi` | Intel Gaudi2-3 / HPU / SynapseAI / TPC |
+| CPU | `QuixiAI/QuixiCore-CPU` | Host CPU / SIMD / threading |
 
 ## Ownership Boundary
 

@@ -38,6 +38,7 @@ Benchmarks should use native platform timing and synchronization:
 - ROCm uses HIP/ROCm timing facilities.
 - XPU uses oneAPI/SYCL/Level Zero timing facilities.
 - Gaudi uses HPU/SynapseAI profiling and timing facilities.
+- CPU uses a monotonic host timer with documented synchronization, thread affinity, and frequency policy where applicable.
 
 ## Comparability
 

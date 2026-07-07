@@ -9,6 +9,7 @@ kernel implementations live in the sibling repositories:
 - `QuixiCore-ROCm`
 - `QuixiCore-XPU`
 - `QuixiCore-Gaudi`
+- `QuixiCore-CPU`
 
 ## Core Rules
 

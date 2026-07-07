@@ -1,8 +1,8 @@
 # QuixiCore
 
-**QuixiCore is a family of native high-performance AI kernel libraries for modern accelerators.**
+**QuixiCore is a family of native high-performance AI kernel libraries for modern hardware platforms.**
 
-QuixiCore is one kernel library contract with five standalone native implementations: CUDA, Metal, ROCm, XPU, and Gaudi.
+QuixiCore is one kernel library contract with six standalone native implementations: CUDA, Metal, ROCm, XPU, Gaudi, and CPU.
 
 Each backend is a standalone implementation written directly for its target platform. The repositories share no implementation code. They share a common kernel contract: the same operations, quant formats, correctness expectations, benchmark methodology, and public library identity.
 
@@ -15,6 +15,7 @@ Each backend is a standalone implementation written directly for its target plat
 | QuixiCore ROCm | AMD ROCm / CDNA2-4 | [QuixiAI/QuixiCore-ROCm](https://github.com/QuixiAI/QuixiCore-ROCm) |
 | QuixiCore XPU | Intel GPU / oneAPI / SYCL | [QuixiAI/QuixiCore-XPU](https://github.com/QuixiAI/QuixiCore-XPU) |
 | QuixiCore Gaudi | Intel Gaudi2-3 / HPU | [QuixiAI/QuixiCore-Gaudi](https://github.com/QuixiAI/QuixiCore-Gaudi) |
+| QuixiCore CPU | Host CPU / SIMD / threading | [QuixiAI/QuixiCore-CPU](https://github.com/QuixiAI/QuixiCore-CPU) |
 
 ## Design Philosophy
 
@@ -22,7 +23,7 @@ QuixiCore is built around one principle:
 
 **Native implementations. Shared contract. No shared code.**
 
-CUDA kernels should be written like CUDA kernels. Metal kernels should be written like Metal kernels. ROCm kernels should be written like ROCm kernels. XPU kernels should be written for Intel GPU tooling. Gaudi kernels should be written for the Gaudi HPU/TPC stack.
+CUDA kernels should be written like CUDA kernels. Metal kernels should be written like Metal kernels. ROCm kernels should be written like ROCm kernels. XPU kernels should be written for Intel GPU tooling. Gaudi kernels should be written for the Gaudi HPU/TPC stack. CPU kernels should be written for host CPU vectorization and threading.
 
 The shared layer is not source code. The shared layer is the definition of what each backend must implement.
 

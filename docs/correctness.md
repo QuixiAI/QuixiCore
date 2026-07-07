@@ -18,7 +18,7 @@ The tolerance registry in `registry/tolerances.yaml` defines the initial vocabul
 
 Each kernel family should name a reference behavior. The reference may be:
 
-- A simple CPU implementation
+- A simple scalar reference implementation
 - A PyTorch expression
 - A NumPy expression
 - A format-specific decoder or encoder

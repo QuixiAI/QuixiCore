@@ -12,7 +12,7 @@ The schema is defined in `registry/backend-metadata.schema.yaml`.
 
 ## Required Fields
 
-- `backend`: stable backend key: `cuda`, `metal`, `rocm`, `xpu`, or `gaudi`
+- `backend`: stable backend key: `cuda`, `metal`, `rocm`, `xpu`, `gaudi`, or `cpu`
 - `name`: user-facing backend name
 - `repo`: GitHub repository in `owner/name` form
 - `umbrella`: umbrella repository, normally `QuixiAI/QuixiCore`
@@ -115,3 +115,17 @@ integrations:
   - TPC
 ```
 
+```yaml
+backend: cpu
+name: QuixiCore CPU
+repo: QuixiAI/QuixiCore-CPU
+umbrella: QuixiAI/QuixiCore
+contract: v0.1
+status: planned
+targets:
+  - x86_64
+  - aarch64
+integrations:
+  - SIMD
+  - threading
+```

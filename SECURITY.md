@@ -7,6 +7,7 @@ QuixiCore is a contract and documentation repository. Security issues in native 
 - `QuixiAI/QuixiCore-ROCm`
 - `QuixiAI/QuixiCore-XPU`
 - `QuixiAI/QuixiCore-Gaudi`
+- `QuixiAI/QuixiCore-CPU`
 
 For contract-level issues that affect multiple backends, open a private security advisory or contact the maintainers through the QuixiAI organization.
 

@@ -50,3 +50,12 @@ QuixiCore Gaudi is the Intel Gaudi implementation of the QuixiCore kernel librar
 It is a standalone native implementation for Gaudi2 and Gaudi3 accelerators using the HPU/SynapseAI/TPC ecosystem. It shares no implementation code with the other QuixiCore backends.
 ```
 
+## CPU
+
+```markdown
+# QuixiCore CPU
+
+QuixiCore CPU is the host CPU implementation of the QuixiCore kernel library.
+
+It is a standalone native implementation for CPU targets using host SIMD vectorization and threaded runtimes. It shares no implementation code with the other QuixiCore backends.
+```

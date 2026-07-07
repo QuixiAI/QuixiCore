@@ -34,8 +34,9 @@ Each backend is a first-class native implementation:
 - ROCm for AMD CDNA accelerators
 - XPU for Intel GPUs
 - Gaudi for Gaudi HPUs
+- CPU for host processors
 
-XPU and Gaudi are separate backends because they have different compiler stacks, runtime systems, programming models, performance constraints, and user workflows.
+CPU, XPU, and Gaudi are separate backends because they have different compiler stacks, runtime systems, programming models, performance constraints, and user workflows.
 
 ## Repository Topology
 

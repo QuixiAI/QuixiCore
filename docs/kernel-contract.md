@@ -12,7 +12,7 @@ The contract covers:
 - Benchmark shape coverage
 - Status reporting
 
-Backend repositories may expose platform-specific tuning knobs, but the common contract should remain recognizable across all five implementations.
+Backend repositories may expose platform-specific tuning knobs, but the common contract should remain recognizable across all implementations.
 
 ## Contract Levels
 

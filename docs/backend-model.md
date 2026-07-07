@@ -1,6 +1,6 @@
 # Backend Model
 
-QuixiCore is one kernel library contract with five standalone native implementations: CUDA, Metal, ROCm, XPU, and Gaudi.
+QuixiCore is one kernel library contract with six standalone native implementations: CUDA, Metal, ROCm, XPU, Gaudi, and CPU.
 
 The umbrella repository defines the shared contract. Backend repositories implement that contract independently.
 
@@ -53,4 +53,3 @@ Each backend should include:
 ```
 
 That file should name the backend, repository, umbrella repository, implemented contract version, status, and target architectures. See `docs/backend-metadata.md`.
-
