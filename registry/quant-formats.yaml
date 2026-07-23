@@ -19,4 +19,15 @@ quant_formats:
     name: BitNet
     spec: specs/formats/bitnet.md
     status: planned
-
+  integer:
+    name: Integer INT4 / INT8
+    spec: specs/formats/integer.md
+    status: planned
+  checkpoint_schemes:
+    name: AWQ / GPTQ / AutoRound / SmoothQuant
+    spec: specs/formats/schemes.md
+    status: planned
+  turboquant:
+    name: TurboQuant KV cache
+    spec: specs/formats/turboquant.md
+    status: planned
