@@ -86,7 +86,7 @@ examples:
     repo: QuixiAI/QuixiCore-CPU
     umbrella: QuixiAI/QuixiCore
     contract: v0.1
-    status: planned
+    status: active
     targets:
       - x86_64
       - aarch64

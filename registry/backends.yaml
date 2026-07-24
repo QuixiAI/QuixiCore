@@ -64,7 +64,8 @@ backends:
     repo: QuixiAI/QuixiCore-CPU
     platform: CPU
     description: Native CPU implementation for host execution, SIMD vectorization, and threaded runtimes.
+    min_arch: portable_scalar
     targets:
       - x86_64
       - aarch64
-    status: planned
+    status: active

@@ -7,6 +7,6 @@
 | ROCm | `cdna2` | `cdna2`, `cdna3`, `cdna4` |
 | XPU | TBD | `intel_arc`, `intel_data_center_gpu`, `future_xpu` |
 | Gaudi | `gaudi2` | `gaudi2`, `gaudi3` |
-| CPU | TBD | `x86_64`, `aarch64` |
+| CPU | portable scalar | `x86_64`, `aarch64` |
 
 CPU, XPU, and Gaudi are intentionally separate architecture families.
