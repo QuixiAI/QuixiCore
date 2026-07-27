@@ -1,5 +1,8 @@
 # Backend Coverage
 
+See [`capability-map.md`](capability-map.md) for the operation-level inventory
+and exact source revisions behind this family summary.
+
 | Kernel Family | CUDA | Metal | ROCm | XPU | Gaudi | CPU |
 |---|---:|---:|---:|---:|---:|---:|
 | RMSNorm / LayerNorm | ✅ | ✅ | 🚧 | ⬜ | ⬜ | ✅ |
