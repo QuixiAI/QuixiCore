@@ -1,0 +1,147 @@
+schema_version: 0.2
+abi: kernel_call_v1
+
+# Only aliases whose host-visible semantics are already documented as equal are
+# collapsed. Ambiguous fusions, layouts, and staged operations remain distinct
+# until their contracts are specified.
+aliases:
+  attn_decode_bh: decode_cache_attention
+  attn_fwd_sg_d256: attention
+  base_q_gemv_qkv: base_q_qkv
+  base_q_gemv_swiglu: base_q_swiglu
+  based: based_attention
+  bf16fp32_matmul: dense_gemm
+  decode_linear_epilogue: linear_epilogue
+  decode_linear_epilogue_dense: linear_epilogue
+  decode_linear_epilogue_packed: linear_epilogue
+  decode_swiglu_dense: decode_swiglu
+  decode_swiglu_packed: decode_swiglu
+  fftconv: fft_convolution
+  fp8fp32_matmul: fp8_scaled_gemm
+  gdn_recur: gdn_recurrence
+  gemm_staged: dense_gemm
+  gqa: attention
+  gqa_backward: attention_backward
+  gqa_causal: attention
+  gqa_causal_backward: attention_backward
+  gqa_swa: window_attention
+  hedgehog: hedgehog_attention
+  int8_matmul: int8_gemm
+  layernorm: layer_norm
+  linear_attn: linear_attention
+  lm_head: quantized_lm_head_sample
+  matmul_custom: dense_gemm
+  mxfp8_matmul: mxfp8_gemm
+  nvfp4_matmul: nvfp4_gemm
+  pool_mean_rms_l2: mean_pool_rms_l2
+  qgemm_int8: int8_gemm
+  qgemv_int4: lowbit_gemv
+  qgemv_q4_0_f32_qkv: qgemv_qkv
+  qgemv_q4_0_f32_up_gate: qgemv_up_gate
+  qgemv_q4_0_f32_up_gate_gelu: qgemv_up_gate_activation
+  qk_norm_rope_kv_f16: qk_norm_rope
+  rms_residual_next: rms_norm_residual_next
+  rmsnorm: rms_norm
+  rotary: rope
+  scaled_matmul: dense_gemm_ex
+
+family_overrides:
+  fp8_scaled_gemm: matmul
+  int8_gemm: matmul
+  mean_pool_rms_l2: pooling
+
+# These manifest IDs summarize multiple callable semantics or implementation
+# collections. They remain evidence aliases and never become callable stubs.
+aggregates:
+  - attn_composites
+  - base_q_fused_consumers
+  - elementwise
+  - flux
+  - fp8_gemm_collectives
+  - kv_cache_q8_0
+  - marginal
+  - moe
+  - moe_quant
+  - quant_rt
+  - rope_variants
+  - serving
+  - standalone_collectives
+
+# Practical inference contracts not yet present in the evidenced operation
+# union. They are intentionally planned and generate stubs on every backend.
+planned_operations:
+  adaptive_norm_modulation: {family: diffusion, kind: primitive}
+  adaptive_rms_norm_modulation: {family: diffusion, kind: primitive}
+  patchify_nd: {family: diffusion, kind: primitive}
+  unpatchify_nd: {family: diffusion, kind: primitive}
+  rope_3d: {family: diffusion, kind: primitive}
+  multimodal_rope_nd: {family: multimodal, kind: primitive}
+  joint_multimodal_attention: {family: multimodal, kind: primitive}
+  flow_euler_step: {family: diffusion, kind: primitive}
+  diffusion_scheduler_step: {family: diffusion, kind: primitive}
+  classifier_free_guidance_combine: {family: diffusion, kind: primitive}
+  deterministic_noise: {family: diffusion, kind: primitive}
+  upsample_3d: {family: convolution, kind: primitive}
+  downsample_3d: {family: convolution, kind: primitive}
+  stft: {family: audio, kind: primitive}
+  istft: {family: audio, kind: primitive}
+  log_mel_spectrogram: {family: audio, kind: primitive}
+  audio_resample: {family: audio, kind: primitive}
+  streaming_conv1d_state: {family: audio, kind: primitive}
+  overlap_add: {family: audio, kind: primitive}
+  residual_vector_quantize_encode: {family: audio, kind: primitive}
+  residual_vector_quantize_decode: {family: audio, kind: primitive}
+  multi_codebook_sample: {family: audio, kind: primitive}
+  ctc_decode: {family: audio, kind: primitive}
+  rnnt_joiner: {family: audio, kind: primitive}
+  rnnt_beam_step: {family: audio, kind: primitive}
+  resize_bilinear: {family: vision, kind: primitive}
+  resize_bicubic: {family: vision, kind: primitive}
+  pixel_shuffle: {family: vision, kind: primitive}
+  grid_sample: {family: vision, kind: primitive}
+  non_max_suppression: {family: vision, kind: primitive}
+  roi_align: {family: vision, kind: primitive}
+  deformable_attention: {family: vision, kind: primitive}
+  prefix_append_attention: {family: attention, kind: primitive}
+  mixed_prefill_decode_attention: {family: attention, kind: primitive}
+  kv_cache_compact: {family: serving, kind: primitive}
+  kv_cache_offload: {family: serving, kind: primitive}
+  grammar_mask: {family: sampling, kind: primitive}
+  ragged_pack: {family: multimodal, kind: primitive}
+  ragged_unpack: {family: multimodal, kind: primitive}
+  multimodal_stream_interleave: {family: multimodal, kind: primitive}
+  multimodal_stream_deinterleave: {family: multimodal, kind: primitive}
+
+  residual_rms_norm_quant: {family: norms, kind: fused}
+  qkv_projection_qk_norm_rope_kv_append: {family: attention, kind: fused}
+  paged_attention_output_projection_residual: {family: attention, kind: fused}
+  gate_up_projection_swiglu: {family: matmul, kind: fused}
+  down_projection_residual: {family: matmul, kind: fused}
+  logits_bias_penalties_top_k_top_p_sample: {family: sampling, kind: fused}
+  speculative_verify_accept_compact_kv: {family: serving, kind: fused}
+  moe_route_top_k_prefix_sum_permute: {family: moe, kind: fused}
+  moe_grouped_gemm_swiglu: {family: moe, kind: fused}
+  moe_unpermute_weighted_reduce: {family: moe, kind: fused}
+  adaptive_norm_modulation_qkv: {family: diffusion, kind: fused}
+  adaptive_rms_norm_modulation_qkv: {family: diffusion, kind: fused}
+  qk_norm_rope_attention: {family: attention, kind: fused}
+  attention_gate_residual: {family: attention, kind: fused}
+  geglu_projection: {family: matmul, kind: fused}
+  classifier_free_guidance_scheduler_step: {family: diffusion, kind: fused}
+  group_norm_silu: {family: convolution, kind: fused}
+  upsample_conv2d: {family: convolution, kind: fused}
+  downsample_conv2d: {family: convolution, kind: fused}
+  causal_conv3d_cache_update: {family: convolution, kind: fused}
+  temporal_upsample_conv3d: {family: convolution, kind: fused}
+  resize_normalize_layout_quant: {family: vision, kind: fused}
+  patchify_projection_position: {family: vision, kind: fused}
+  window_rfft_power_mel_log: {family: audio, kind: fused}
+  causal_conv_gate_residual: {family: audio, kind: fused}
+  rvq_distance_argmin_residual_update: {family: audio, kind: fused}
+  conv_transpose_overlap_add: {family: audio, kind: fused}
+  multistream_logits_codebook_sample: {family: audio, kind: fused}
+  flow_step_action_clamp_denormalize: {family: vla_world_models, kind: fused}
+  all_reduce_rms_norm: {family: collectives, kind: fused}
+  all_gather_gemm: {family: collectives, kind: fused}
+  reduce_scatter_gemm: {family: collectives, kind: fused}
+  moe_all_to_all_dispatch: {family: collectives, kind: fused}

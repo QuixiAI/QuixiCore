@@ -1,3 +1,10 @@
+canonical_contract:
+  operations: registry/operations.yaml
+  normalization: registry/operation-normalization.yaml
+  abi: kernel_call_v1
+  header: include/quixicore/contract/kernel_abi.hpp
+  generator: tools/sync_kernel_contract.rb
+
 kernel_families:
   norms:
     name: RMSNorm / LayerNorm
@@ -63,4 +70,3 @@ kernel_families:
     name: Optimizers
     spec: specs/kernels/optimizers.md
     status: active
-
