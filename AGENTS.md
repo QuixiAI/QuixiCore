@@ -25,6 +25,18 @@ kernel implementations live in the sibling repositories:
   tier unless the corresponding backend repo has correctness and performance
   evidence.
 
+## Git Publishing Policy
+
+- Never create, switch, rename, or choose a branch unless the user explicitly
+  requests it. The user owns branch selection.
+- Never create a pull request unless the user explicitly requests one.
+- When asked to "commit and push," commit on the branch that is already checked
+  out and push that same branch to its configured upstream.
+- Apply this policy to the umbrella repository and every child repository.
+- If the current branch has no upstream, pushing it is blocked, or branch
+  selection is ambiguous, stop and ask the user rather than creating or
+  switching branches or opening a pull request.
+
 ## Performance Optimization Requirement
 
 Before committing any kernel implementation, kernel routing change, benchmark
