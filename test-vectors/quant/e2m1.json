@@ -1,0 +1,87 @@
+{
+  "format": "e2m1",
+  "spec": "specs/formats/fp4.md",
+  "note": "Code 8 is negative zero; compare bits, not values.",
+  "cases": [
+    {
+      "code": 0,
+      "value": "0.0",
+      "bits": "0x00000000"
+    },
+    {
+      "code": 1,
+      "value": "0.5",
+      "bits": "0x3f000000"
+    },
+    {
+      "code": 2,
+      "value": "1.0",
+      "bits": "0x3f800000"
+    },
+    {
+      "code": 3,
+      "value": "1.5",
+      "bits": "0x3fc00000"
+    },
+    {
+      "code": 4,
+      "value": "2.0",
+      "bits": "0x40000000"
+    },
+    {
+      "code": 5,
+      "value": "3.0",
+      "bits": "0x40400000"
+    },
+    {
+      "code": 6,
+      "value": "4.0",
+      "bits": "0x40800000"
+    },
+    {
+      "code": 7,
+      "value": "6.0",
+      "bits": "0x40c00000"
+    },
+    {
+      "code": 8,
+      "value": "-0.0",
+      "bits": "0x80000000"
+    },
+    {
+      "code": 9,
+      "value": "-0.5",
+      "bits": "0xbf000000"
+    },
+    {
+      "code": 10,
+      "value": "-1.0",
+      "bits": "0xbf800000"
+    },
+    {
+      "code": 11,
+      "value": "-1.5",
+      "bits": "0xbfc00000"
+    },
+    {
+      "code": 12,
+      "value": "-2.0",
+      "bits": "0xc0000000"
+    },
+    {
+      "code": 13,
+      "value": "-3.0",
+      "bits": "0xc0400000"
+    },
+    {
+      "code": 14,
+      "value": "-4.0",
+      "bits": "0xc0800000"
+    },
+    {
+      "code": 15,
+      "value": "-6.0",
+      "bits": "0xc0c00000"
+    }
+  ]
+}

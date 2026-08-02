@@ -2,11 +2,20 @@ quant_formats:
   gguf:
     name: GGUF formats
     spec: specs/formats/gguf.md
-    status: planned
+    status: partial
+    vectors:
+      - test-vectors/quant/e8m0_gguf.json
+    notes: >-
+      E8M0 diverges from OCP MX at code 255 (+Inf, not NaN); the two must not
+      share a decoder. IQ2_XXS is a codebook format and must be decoded at tile
+      load rather than in the inner dot.
   mx:
     name: MX formats
     spec: specs/formats/mx-formats.md
-    status: planned
+    status: partial
+    vectors:
+      - test-vectors/quant/e8m0.json
+      - test-vectors/quant/mxfp4.json
   fp8:
     name: FP8
     spec: specs/formats/fp8.md
@@ -14,7 +23,9 @@ quant_formats:
   fp4:
     name: FP4
     spec: specs/formats/fp4.md
-    status: planned
+    status: partial
+    vectors:
+      - test-vectors/quant/e2m1.json
   bitnet:
     name: BitNet
     spec: specs/formats/bitnet.md

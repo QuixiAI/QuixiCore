@@ -1,0 +1,38 @@
+{
+  "format": "e8m0_gguf",
+  "spec": "specs/formats/gguf.md",
+  "note": "Differs from e8m0 only at code 255. Kept as a separate contract so a backend cannot satisfy one by breaking the other.",
+  "cases": [
+    {
+      "code": 0,
+      "value": "5.877471754111438e-39",
+      "bits": "0x00400000"
+    },
+    {
+      "code": 1,
+      "value": "1.1754943508222875e-38",
+      "bits": "0x00800000"
+    },
+    {
+      "code": 126,
+      "value": "0.5",
+      "bits": "0x3f000000"
+    },
+    {
+      "code": 127,
+      "value": "1.0",
+      "bits": "0x3f800000"
+    },
+    {
+      "code": 254,
+      "value": "1.7014118346046923e+38",
+      "bits": "0x7f000000"
+    },
+    {
+      "code": 255,
+      "value": "inf",
+      "bits": "0x7f800000",
+      "note": "ggml bit-puns with no special case; MX says NaN"
+    }
+  ]
+}

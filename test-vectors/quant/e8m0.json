@@ -1,0 +1,53 @@
+{
+  "format": "e8m0",
+  "spec": "specs/formats/mx-formats.md",
+  "note": "Code 0 is the divergence that matters: it is 2^-127, a SUBNORMAL float, not zero and not the smallest normal. A decoder using __uint_as_float(code << 23) returns +0.0 here and +Inf at 255. That shortcut is sound only under the producer contract (an all-zero block carries code 0 with all-zero elements), so a backend may ship it -- but it must not claim conformance.",
+  "cases": [
+    {
+      "code": 0,
+      "value": "5.877471754111438e-39",
+      "bits": "0x00400000"
+    },
+    {
+      "code": 1,
+      "value": "1.1754943508222875e-38",
+      "bits": "0x00800000"
+    },
+    {
+      "code": 2,
+      "value": "2.350988701644575e-38",
+      "bits": "0x01000000"
+    },
+    {
+      "code": 126,
+      "value": "0.5",
+      "bits": "0x3f000000"
+    },
+    {
+      "code": 127,
+      "value": "1.0",
+      "bits": "0x3f800000"
+    },
+    {
+      "code": 128,
+      "value": "2.0",
+      "bits": "0x40000000"
+    },
+    {
+      "code": 253,
+      "value": "8.507059173023462e+37",
+      "bits": "0x7e800000"
+    },
+    {
+      "code": 254,
+      "value": "1.7014118346046923e+38",
+      "bits": "0x7f000000"
+    },
+    {
+      "code": 255,
+      "value": "nan",
+      "bits": null,
+      "note": "NaN; the format has no infinity"
+    }
+  ]
+}
