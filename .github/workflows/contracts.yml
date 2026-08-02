@@ -1,0 +1,50 @@
+name: Contracts
+
+# The umbrella's job is to hold the contracts the six backends agree on. That
+# only means anything if the contracts are checked, so this runs the two things
+# that would otherwise depend on someone remembering: that the committed test
+# vectors still match the generator, and that the registry points at files that
+# exist.
+#
+# The vectors are what caught four backends decoding the same E8M0 byte three
+# different ways at the edges. Nothing had compared them because nothing ran.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  vectors:
+    name: quant vectors
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Regenerating and diffing catches a vector edited by hand, which would
+      # otherwise let a backend be "conformant" to something the spec does not
+      # say.
+      - name: Vectors match the generator
+        run: python3 scripts/gen_quant_vectors.py --check
+
+      - name: Registry references resolve
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+          root = pathlib.Path(".")
+          bad = []
+          for yml in sorted((root / "registry").glob("*.yaml")):
+              for n, line in enumerate(yml.read_text().splitlines(), 1):
+                  # Bare paths into specs/ or test-vectors/, however quoted.
+                  for m in re.finditer(r"(?:specs|test-vectors)/[\w./-]+", line):
+                      p = root / m.group(0)
+                      if not p.exists():
+                          bad.append(f"{yml}:{n}: missing {m.group(0)}")
+          for b in bad:
+              print(b)
+          print(f"{'FAIL' if bad else 'OK'}: registry path references")
+          sys.exit(1 if bad else 0)
+          PY
