@@ -90,6 +90,12 @@ operations:
     maturity: planned
     abi: kernel_call_v1
     source_ids: []
+  all_reduce:
+    family: collectives
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   all_reduce_rms_norm:
     family: collectives
     kind: fused
@@ -289,6 +295,18 @@ operations:
     abi: kernel_call_v1
     source_ids:
     - calibration_absmax
+  causal_conv1d_decode:
+    family: ssm
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
+  causal_conv1d_prefill:
+    family: ssm
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   causal_conv3d_cache_update:
     family: convolution
     kind: fused
@@ -673,6 +691,12 @@ operations:
     maturity: planned
     abi: kernel_call_v1
     source_ids: []
+  fp4_gemm_w4a4:
+    family: quantization
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   fp8_gemm:
     family: quantization
     kind: operation
@@ -784,6 +808,12 @@ operations:
     abi: kernel_call_v1
     source_ids:
     - glu
+  glu_quant:
+    family: activations
+    kind: fused
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   grammar_mask:
     family: sampling
     kind: primitive
@@ -806,6 +836,12 @@ operations:
   group_norm_silu:
     family: convolution
     kind: fused
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
+  group_rms_norm_gated:
+    family: norms
+    kind: operation
     maturity: planned
     abi: kernel_call_v1
     source_ids: []
@@ -851,6 +887,18 @@ operations:
     abi: kernel_call_v1
     source_ids:
     - indexer_k_gather
+  indexer_k_quant_cache:
+    family: serving
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
+  indexer_q_rope_quant:
+    family: serving
+    kind: fused
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   int8_gemm:
     family: matmul
     kind: operation
@@ -866,6 +914,12 @@ operations:
     abi: kernel_call_v1
     source_ids:
     - interpolate_position_2d
+  inverse_rope:
+    family: attention
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   istft:
     family: audio
     kind: primitive
@@ -1115,6 +1169,12 @@ operations:
     source_ids:
     - mean_pool_rms_l2
     - pool_mean_rms_l2
+  merge_attn_states:
+    family: attention
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   mixed_prefill_decode_attention:
     family: attention
     kind: primitive
@@ -1855,6 +1915,12 @@ operations:
     abi: kernel_call_v1
     source_ids:
     - ssd_decode
+  ssd_prefill:
+    family: ssm
+    kind: operation
+    maturity: planned
+    abi: kernel_call_v1
+    source_ids: []
   stft:
     family: audio
     kind: primitive
