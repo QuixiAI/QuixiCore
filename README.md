@@ -40,11 +40,16 @@ This repository is the umbrella contract repository for the QuixiCore family. It
 - Backend registry metadata
 - Kernel and quant format registries
 - Correctness and benchmarking specifications
+- Build artifact and profile conventions
 - Coverage and architecture support matrices
 - Release and naming policy
 - Test-vector organization
 
 It intentionally does not contain backend implementation code, shared kernel code, platform bindings, or build systems.
+
+Backend build systems remain native to their repositories, while generated
+artifact layout and reusable profile names follow
+[`docs/build-conventions.md`](docs/build-conventions.md).
 
 ## Contract Version
 

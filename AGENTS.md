@@ -37,6 +37,20 @@ kernel implementations live in the sibling repositories:
   selection is ambiguous, stop and ask the user rather than creating or
   switching branches or opening a pull request.
 
+## Build Artifact Policy
+
+- Follow `docs/build-conventions.md` in the umbrella and every backend repo.
+- Keep generated build artifacts under one repository-local `build/` root,
+  with incompatible configurations isolated as `build/<profile>/`.
+- Do not create top-level task-, agent-, experiment-, or architecture-named
+  directories such as `build-plan/`, `build-agent/`, or `build-x86/`.
+- Use the backend's checked-in presets or wrappers when available. If a new
+  configuration is reusable, add a stable profile; if it is temporary, put it
+  below `build/scratch/` and remove it when the task is complete.
+- Never treat a build tree as durable correctness or performance evidence.
+  Record required evidence in the backend's documented status and results
+  paths.
+
 ## Performance Optimization Requirement
 
 Before committing any kernel implementation, kernel routing change, benchmark
