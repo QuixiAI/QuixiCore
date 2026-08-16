@@ -3,7 +3,7 @@ canonical_contract:
   normalization: registry/operation-normalization.yaml
   abi: kernel_call_v1
   header: include/quixicore/contract/kernel_abi.hpp
-  generator: tools/sync_kernel_contract.rb
+  generator: tools/sync_kernel_contract.py
 
 kernel_families:
   norms:

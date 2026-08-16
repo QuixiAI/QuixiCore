@@ -45,7 +45,7 @@ callable ABI, and carries planned practical inference and fused operations.
 
 ## Generated Backend Stubs
 
-Run `ruby tools/sync_kernel_contract.rb` after changing the capability map or
+Run `python3 tools/sync_kernel_contract.py` after changing the capability map or
 normalization ledger. For each active backend it generates:
 
 - an identical copy of the canonical ABI and operation descriptor headers;
@@ -61,7 +61,7 @@ wires and evidences the canonical operation. A stub may be removed only after
 the native path, correctness coverage, performance evidence, and manifest entry
 exist. Evidenced native paths without a canonical wrapper return
 `adapter_not_wired`, keeping that integration gap distinct from an unimplemented
-kernel. `ruby tools/sync_kernel_contract.rb --check` verifies synchronization.
+kernel. `python3 tools/sync_kernel_contract.py --check` verifies synchronization.
 
 ## Contract Levels
 

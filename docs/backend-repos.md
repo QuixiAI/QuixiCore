@@ -43,7 +43,7 @@ The expected shape is defined in `docs/backend-metadata.md` and `registry/backen
 Each backend's `AGENTS.md`, `CLAUDE.md`, and `.claude/settings.json` are
 generated from `docs/templates/` by `tools/sync_agent_docs.py`, and each
 backend's `perf/harness/{run_bench_core.sh,perf_diff.py}` are synced copies of
-the umbrella canonicals (`tools/sync_perf_tooling.rb`). Run
+the umbrella canonicals (`tools/sync_perf_tooling.py`). Run
 `bash tools/fleet_check.sh` from the umbrella before committing cross-cutting
 changes; it verifies both, plus the notebooks, metadata, matrices, and
 conformance snapshots.

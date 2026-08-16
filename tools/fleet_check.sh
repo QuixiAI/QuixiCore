@@ -24,9 +24,9 @@ step() {
 step "quant vectors match the generator" python3 scripts/gen_quant_vectors.py --check
 step "bench fixture matches the reporting format" python3 scripts/perf_diff.py validate test-vectors/bench/sample-run
 step "matrix status symbols" python3 scripts/lint_matrices.py
-step "kernel contract is synchronized" ruby tools/sync_kernel_contract.rb --check
-step "perf tooling is synchronized" ruby tools/sync_perf_tooling.rb --check
-step "backend metadata matches the schema" ruby tools/check_backend_metadata.rb
+step "kernel contract is synchronized" python3 tools/sync_kernel_contract.py --check
+step "perf tooling is synchronized" python3 tools/sync_perf_tooling.py --check
+step "backend metadata matches the schema" python3 tools/check_backend_metadata.py
 step "agent docs match the templates" python3 tools/sync_agent_docs.py --check
 step "notebooks are canonical" python3 tools/perf_notebook.py check QuixiCore-*/perf/optimization_status.md
 

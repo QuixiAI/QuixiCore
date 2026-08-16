@@ -1,4 +1,3 @@
-/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/universal-darwin25/rbconfig.rb:21: warning: Insecure world writable dir /Users/eric in PATH, mode 040757
 # Kernel Capability Map
 
 Inventory date: 2026-07-27.
