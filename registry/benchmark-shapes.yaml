@@ -25,3 +25,24 @@ benchmark_shapes:
     experts: [8, 16, 64]
     top_k: [1, 2, 4]
 
+
+# Input distributions. Shapes say how big the work is; distributions say what
+# the data looks like — and specialized kernels can win or lose on that alone
+# (low-rank inputs are full of zeros; real quantized weights are not randn).
+# Benchmark rows should record which distribution produced their inputs
+# (results.jsonl `distribution` field); results are comparable only within
+# one distribution. `random_normal` is the assumed default when unrecorded.
+benchmark_distributions:
+  random_normal:
+    description: >-
+      Independent standard-normal data. The default, and the least realistic;
+      a kernel benched only here should say so.
+  real_model:
+    description: >-
+      Weights or activations drawn from a real checkpoint (record which),
+      preserving per-channel scale structure and outliers.
+  adversarial:
+    description: >-
+      Structured worst cases — saturated ranges, denormals, low-rank or sparse
+      inputs, repeated values — chosen to stress the kernel's assumptions or
+      to expose exploitable structure.

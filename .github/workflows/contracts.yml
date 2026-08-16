@@ -75,6 +75,16 @@ jobs:
             || { echo "FAIL: perf_diff summary counts changed"; exit 1; }
           echo "OK: perf_diff golden regression test"
 
+      # The score reduction must stay deterministic — it is the number
+      # optimization campaigns hill-climb, so silent drift would corrupt
+      # every scoreboard lineage.
+      - name: Score reduction is stable on the fixture
+        run: |
+          out=$(python3 scripts/perf_diff.py score test-vectors/bench/sample-run)
+          echo "$out"
+          echo "$out" | grep -F "perf_diff score: 1.631 ms geomean over 7 timed row(s)" \
+            || { echo "FAIL: fixture score changed"; exit 1; }
+
       - name: Matrix status symbols are in the shared vocabulary
         run: python3 scripts/lint_matrices.py
 

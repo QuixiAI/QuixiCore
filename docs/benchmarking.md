@@ -105,6 +105,28 @@ or min-to-max spread above 1.20x) must not be used for a keep/reject
 decision — re-run on an idle host instead. A run that times out or crashes is
 inconclusive, never a rejection and never a win.
 
+### Input distributions
+
+Shapes say how big the work is; distributions say what the data looks like,
+and specialized kernels can win or lose on that alone.
+`registry/benchmark-shapes.yaml` defines the distribution families
+(`random_normal`, `real_model`, `adversarial`). A row may record which one
+produced its inputs in the reserved optional `distribution` field;
+`random_normal` is assumed when unrecorded. Results are comparable only
+within one distribution, and a kernel benched only on random data should say
+so.
+
+### Score and lineage
+
+`scripts/perf_diff.py score <run>` reduces a run to one hill-climbable
+number: the weighted geometric mean (ms) of its timed rows (weights default
+to 1.0 per row; pass `--weights` with a kernel-to-weight JSON to emphasize
+priority kernels). Lower is better; scores are comparable only within one
+host fingerprint and row set. Each backend tracks its score lineage in
+`perf/scoreboard.md` — one row per promoted best, appended with
+`score --record` — so a long optimization campaign has the same
+best-submission history a leaderboard would provide.
+
 ### Field reconciliation
 
 The umbrella `AGENTS.md` requires "median, and variance or min/max" in every
