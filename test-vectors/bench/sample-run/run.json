@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "backend": "example",
+  "repo": "QuixiAI/QuixiCore",
+  "contract": "v0.1",
+  "git": "0000000",
+  "timestamp": "2026-01-01T00:00:00",
+  "os": "SyntheticOS 1.0",
+  "arch": "x86_64",
+  "device": "Synthetic Device 1",
+  "warmup": 5,
+  "iters": 30,
+  "preset": "fixture",
+  "note": "Synthetic fixture for scripts/perf_diff.py and CI. Every number is invented; this is not a measurement."
+}

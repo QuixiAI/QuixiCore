@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "backend": "example",
+  "repo": "QuixiAI/QuixiCore",
+  "contract": "v0.1",
+  "git": "0000001",
+  "timestamp": "2026-01-02T00:00:00",
+  "os": "SyntheticOS 1.0",
+  "arch": "x86_64",
+  "device": "Synthetic Device 1",
+  "warmup": 5,
+  "iters": 30,
+  "preset": "fixture",
+  "note": "Synthetic fixture: the candidate side of the perf_diff golden test. One >8% regression, one 3-8% regression, two improvements, one noisy row, unmatched rows on both sides. Every number is invented."
+}

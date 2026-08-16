@@ -1,10 +1,12 @@
 name: Contracts
 
 # The umbrella's job is to hold the contracts the six backends agree on. That
-# only means anything if the contracts are checked, so this runs the two things
+# only means anything if the contracts are checked, so this runs the things
 # that would otherwise depend on someone remembering: that the committed test
-# vectors still match the generator, and that the registry points at files that
-# exist.
+# vectors still match the generator, that the registry points at files that
+# exist, that the benchmark reporting format's own checker still accepts the
+# committed fixture and still catches the seeded regressions, and that the
+# hand-edited matrices only use the shared status vocabulary.
 #
 # The vectors are what caught four backends decoding the same E8M0 byte three
 # different ways at the edges. Nothing had compared them because nothing ran.
@@ -48,3 +50,30 @@ jobs:
           print(f"{'FAIL' if bad else 'OK'}: registry path references")
           sys.exit(1 if bad else 0)
           PY
+
+      # The benchmark reporting format (docs/benchmarking.md, schema 1) is
+      # only real if something validates it. The fixture is synthetic and
+      # labeled as such — no measurement claims.
+      - name: Bench fixture matches the reporting format
+        run: python3 scripts/perf_diff.py validate test-vectors/bench/sample-run
+
+      # The regression detector's own regression test: the seeded candidate
+      # must produce exactly the expected verdict counts and a failing exit.
+      - name: perf_diff catches the seeded regressions
+        run: |
+          set +e
+          out=$(python3 scripts/perf_diff.py diff \
+            test-vectors/bench/sample-run test-vectors/bench/sample-run-regressed)
+          code=$?
+          set -e
+          echo "$out"
+          if [ "$code" -ne 1 ]; then
+            echo "FAIL: expected exit 1 from the seeded regression diff, got $code"
+            exit 1
+          fi
+          echo "$out" | grep -F "6 compared, 2 improved(>=3%), 2 regressed(>=3%), 1 noisy, 2 unmatched" \
+            || { echo "FAIL: perf_diff summary counts changed"; exit 1; }
+          echo "OK: perf_diff golden regression test"
+
+      - name: Matrix status symbols are in the shared vocabulary
+        run: python3 scripts/lint_matrices.py

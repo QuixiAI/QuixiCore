@@ -63,7 +63,8 @@ A valid optimization run includes:
 - A correctness check for the touched path.
 - A baseline measurement and a candidate/current measurement.
 - Hardware, driver/runtime, command line, git commit or working-tree label,
-  warmups, iterations, median, and variance or min/max.
+  warmups, iterations, median, and variance or min/max (field definitions:
+  `docs/benchmarking.md`, Reporting Format).
 - A keep/reject decision recorded in the backend's
   `perf/optimization_status.md`.
 
