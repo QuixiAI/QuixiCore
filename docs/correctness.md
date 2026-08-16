@@ -1,5 +1,27 @@
 # Correctness
 
+## Conformance Reporting
+
+Backend conformance tests that consume `test-vectors/` should print one
+machine-readable line per (format, decoder):
+
+```
+QC-CONFORMANCE {"schema":1,"backend":"cpu","format":"e8m0","decoder":"e8m0_decode","vectors":"test-vectors/quant/e8m0.json","cases":9,"failed":0,"verdict":"conformant"}
+```
+
+`verdict` is `conformant`, `divergent`, or `divergent_documented` (a measured
+divergence covered by a documented producer contract); an optional `note`
+explains the latter. Capture the lines into the backend repo as
+`.quixicore/conformance.jsonl`:
+
+```bash
+<test-binary> | sed -n 's/^QC-CONFORMANCE //p' > .quixicore/conformance.jsonl
+```
+
+The umbrella mirrors those snapshots under `matrices/conformance-data/` and
+generates the test-emitted section of `matrices/format-conformance.md` from
+them (`scripts/gen_format_conformance.py`, checked in CI).
+
 QuixiCore correctness is defined by shared semantics and backend-specific validation against common test vectors.
 
 Correctness methodology should cover:

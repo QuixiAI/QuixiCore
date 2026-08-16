@@ -156,7 +156,19 @@ def validate_rows(rows, meta, label, strict, cv_limit, spread_limit):
             errors.append(f"row {i} ({row.get('variant')}): check_passed=false")
         if status == "ok":
             if row.get("target_ms") is None:
-                errors.append(f"row {i} ({row.get('variant')}): ok row lacks target_ms")
+                throughput = any(
+                    row.get(k) for k in
+                    ("gflops", "tflops", "tops", "gbps", "weight_gbps", "measurements")
+                )
+                correctness_only = row.get("check_passed") is True
+                if throughput or correctness_only:
+                    kind = "throughput-only" if throughput else "correctness-only"
+                    warnings.append(
+                        f"row {i} ({row.get('variant')}): ok row lacks target_ms"
+                        f" ({kind} row; cannot be gated)"
+                    )
+                else:
+                    errors.append(f"row {i} ({row.get('variant')}): ok row lacks target_ms")
             cv, spread = variance(row)
             if cv is None and spread is None:
                 (errors if strict else warnings).append(
@@ -225,6 +237,9 @@ def diff_runs(base_rows, cand_rows, bar_low, bar_high, cv_limit, spread_limit):
     for key in base:
         if key in cand:
             b, c = base[key], cand[key]
+            if b.get("target_ms") is None or c.get("target_ms") is None:
+                results.append((key, b, c, None, "untimed"))
+                continue
             delta = (c["target_ms"] - b["target_ms"]) / b["target_ms"]
             reason = noisy(b, cv_limit, spread_limit) or noisy(c, cv_limit, spread_limit)
             if reason:
@@ -274,10 +289,14 @@ def print_diff(results, as_json):
 
 
 def summarize(results):
-    counts = {"compared": 0, "improved": 0, "regressed": 0, "neutral": 0, "noisy": 0, "unmatched": 0}
+    counts = {"compared": 0, "improved": 0, "regressed": 0, "neutral": 0,
+              "noisy": 0, "unmatched": 0, "untimed": 0}
     for _, b, c, delta, verdict in results:
         if verdict.startswith("only-in"):
             counts["unmatched"] += 1
+            continue
+        if verdict == "untimed":
+            counts["untimed"] += 1
             continue
         counts["compared"] += 1
         if verdict.startswith("improved"):
@@ -301,11 +320,14 @@ def run_diff(base_arg, cand_arg, args, gating):
     print_diff(results, args.json)
     counts = summarize(results)
     if not args.json:
-        print(
+        line = (
             f"perf_diff: {counts['compared']} compared, {counts['improved']} improved"
             f"(>={args.bar_low:.0%}), {counts['regressed']} regressed(>={args.bar_low:.0%}), "
             f"{counts['noisy']} noisy, {counts['unmatched']} unmatched"
         )
+        if counts["untimed"]:
+            line += f", {counts['untimed']} untimed"
+        print(line)
     if gating and comparable and counts["regressed"]:
         return 1
     return 0

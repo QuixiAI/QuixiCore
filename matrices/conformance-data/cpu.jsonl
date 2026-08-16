@@ -1,0 +1,1 @@
+{"schema":1,"backend":"cpu","format":"e8m0","decoder":"e8m0_decode","vectors":"test-vectors/quant/e8m0.json","cases":9,"failed":0,"verdict":"conformant"}

@@ -56,6 +56,11 @@ the variant string carries identity), `dtype`, and `status`
 - preferred: `target_p20_ms`, `target_p80_ms`, `target_cv`
 - accepted: `target_min_ms`, `target_max_ms`, `target_spread` (max/min ratio)
 
+A harness that measures throughput only (no per-case latency) may omit
+`target_ms` on an `ok` row if the row carries a throughput field (`gflops`,
+`tflops`, `tops`, `gbps`, `weight_gbps`, or a `measurements` list); such rows
+validate with a warning and can never be used to gate a regression decision.
+
 Reserved optional fields (do not repurpose these names): `format`, `notes`,
 `batch`, `check_passed`, `max_abs_err`, `max_rel_err`, `baselines` (a map of
 baseline name to an object with required `ms` and `speedup`, optional

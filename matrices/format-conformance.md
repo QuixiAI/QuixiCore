@@ -42,10 +42,30 @@ the GGUF path exists to read the files ggml wrote.
 | Metal | matches by construction | not yet checked |
 | CPU, CUDA | no GGUF decoder | — |
 
+<!-- BEGIN GENERATED: conformance -->
+
+## Test-emitted conformance (generated)
+
+Assembled from each backend's committed `.quixicore/conformance.jsonl`
+snapshot (mirrored under `matrices/conformance-data/`); regenerate with
+`python3 scripts/gen_format_conformance.py`. Backends without a row have
+no snapshot yet — that means unchecked, not conformant.
+
+| Backend | Format | Decoder | Cases | Failed | Verdict |
+|---|---|---|---:|---:|---|
+| cpu | `e8m0` | `e8m0_decode` | 9 | 0 | conformant |
+
+<!-- END GENERATED -->
+
 ## Making this generated
 
-Each backend's conformance test should emit a machine-readable line per format,
-and this file should be assembled from those. Until then it is hand-written and
-will drift — the same failure mode it exists to document. The two `not yet
-checked` rows above are the immediate work: they are read from source, and
-reading source is what produced the wrong three-way split this table replaced.
+The mechanism now exists: conformance tests emit `QC-CONFORMANCE {json}` lines
+(contract in `docs/correctness.md`), each backend commits the captured
+snapshot as `.quixicore/conformance.jsonl`, the snapshots are mirrored into
+`matrices/conformance-data/`, and `scripts/gen_format_conformance.py`
+assembles the generated section above (checked in CI). The hand-written
+per-format sections stay because they carry the edge-code detail a count
+cannot; rows marked `not yet checked` are read from source, and reading
+source is what produced the wrong three-way split this table replaced. The
+immediate work is unchanged: give Metal and CUDA vector-consuming tests and
+snapshots so their rows stop being observations.

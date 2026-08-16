@@ -77,3 +77,7 @@ jobs:
 
       - name: Matrix status symbols are in the shared vocabulary
         run: python3 scripts/lint_matrices.py
+
+      # The generated conformance section must match the committed snapshots.
+      - name: Format conformance table is generated
+        run: python3 scripts/gen_format_conformance.py --check
