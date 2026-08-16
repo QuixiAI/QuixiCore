@@ -11,10 +11,11 @@ cd "$ROOT"
 
 rc=0
 step() {
-    echo "==> $1"
+    local label="$1"
     shift
+    echo "==> $label"
     if ! "$@"; then
-        echo "FAILED: $1" >&2
+        echo "FAILED: $label" >&2
         rc=1
     fi
     echo
