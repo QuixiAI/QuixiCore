@@ -83,6 +83,15 @@ without backend evidence.
 - Raw outputs: `<backend>/perf/results/` or the backend's documented legacy
   path. Do not commit large profiler traces.
 
+## Backend Agent Docs
+
+Backend `AGENTS.md`, `CLAUDE.md`, and `.claude/settings.json` files are
+generated from `docs/templates/` by `tools/sync_agent_docs.py`. Run
+`python3 tools/sync_agent_docs.py --check` before hand-editing any of them.
+Shared wording changes go in the template or
+`docs/templates/agents-params.json`; backend-specific content lives only in
+the marked backend-owned blocks inside each backend repo.
+
 ## Agent Workflow
 
 1. Check `git status` before editing. Do not revert user changes.

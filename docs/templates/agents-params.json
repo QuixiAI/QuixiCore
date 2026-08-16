@@ -1,0 +1,134 @@
+{
+  "_comment": "Per-backend parameters for tools/sync_agent_docs.py. Multi-line values embed newlines with the continuation indent the rendered markdown needs. 'slots' provides initial content for qx:backend blocks on first generation only; after that the backend repo owns the block.",
+  "backends": {
+    "metal": {
+      "path": "QuixiCore-Metal",
+      "backend_display": "Metal",
+      "layout_bullet": "Repository layout: `docs/repository-structure.md`.",
+      "route_word": "integration path",
+      "provenance_bullet": "Apple Silicon model, macOS version, Xcode/Metal toolchain, command line,\n  warmups, iterations, median, and variance or min/max.",
+      "runtime_phrase": "an Apple Silicon/Metal runtime",
+      "factor_list": "tile shape, launch geometry, memory\n  layout, fusion, barrier placement, dequant strategy, routing threshold, or\n  specialization.",
+      "comparison_baselines": "Compare against framework and naive baselines where available.",
+      "store_bullet": "Store raw output under `perf/results/`; copy durable conclusions into\n  `perf/optimization_status.md`. Do not commit large profiler traces.",
+      "commands_block": "scripts/build\nscripts/test correctness -q\nscripts/test parity -q\nscripts/test mps -q\n.venv/bin/python perf/bench_kernels.py --backend mlx --preset quick --kernel <kernel>\n.venv/bin/python perf/bench_kernels.py --backend mlx --preset comprehensive --kernel <kernel>",
+      "profiler_line": "Use Xcode/Instruments or Metal command-buffer timing when benchmark results do\nnot explain a bottleneck.",
+      "claude_runtime": "Metal runtime",
+      "settings_allow_extra": [
+        "Bash(scripts/build:*)",
+        "Bash(scripts/test:*)",
+        "Bash(xcrun:*)",
+        "Bash(sysctl -n:*)"
+      ],
+      "slots": {}
+    },
+    "cuda": {
+      "path": "QuixiCore-CUDA",
+      "backend_display": "CUDA",
+      "layout_bullet": "Repository layout: `docs/repository-structure.md`.",
+      "route_word": "public route",
+      "provenance_bullet": "GPU model, driver, CUDA toolkit, library/framework versions, command line,\n  warmups, iterations, median, and variance or min/max.",
+      "runtime_phrase": "a suitable CUDA GPU/runtime",
+      "factor_list": "tile shape, launch geometry, memory\n  layout, fusion, `cp.async`/shared-memory staging, dequant strategy, routing\n  threshold, or specialization.",
+      "comparison_baselines": "Compare against cuBLAS/cuBLASLt, PyTorch, naive decompositions, and current\n  CUDA kernels where relevant.",
+      "store_bullet": "Store raw output under `perf/results/`; copy durable conclusions into\n  `perf/optimization_status.md`. Do not commit large Nsight traces.",
+      "commands_block": ".venv/bin/python perf/bench_kernels.py --phase all --kernel <kernel>\n.venv/bin/python perf/bench_kernels.py --phase run --kernel <kernel> --gpus 0\nCUDA_VISIBLE_DEVICES=0 bash perf/sweep_quant.sh\ncd kernels/tm_cuda && CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m pytest -q",
+      "profiler_line": "Use Nsight Compute/Systems when a timing A/B does not explain a result. Record\nthe trace path and conclusion, not the full trace.",
+      "claude_runtime": "CUDA runtime",
+      "settings_allow_extra": [
+        "Bash(nvcc --version:*)",
+        "Bash(nvcc:*)",
+        "Bash(nvidia-smi:*)"
+      ],
+      "slots": {}
+    },
+    "rocm": {
+      "path": "QuixiCore-ROCm",
+      "backend_display": "ROCm",
+      "layout_bullet": "Repository layout: `docs/repository-structure.md`.",
+      "route_word": "public route",
+      "provenance_bullet": "AMD GPU model, ROCm/HIP versions, container image, library/framework versions,\n  command line, warmups, iterations, median, and variance or min/max.",
+      "runtime_phrase": "a suitable ROCm GPU/runtime",
+      "factor_list": "tile shape, launch geometry, memory\n  layout, LDS staging, fusion, dequant strategy, routing threshold, or\n  specialization.",
+      "comparison_baselines": "Compare against hipBLASLt, rocBLAS, Composable Kernel, AITER, Triton, PyTorch,\n  naive decompositions, and current ROCm kernels where relevant.",
+      "store_bullet": "Store raw output under `perf/results/` or the documented legacy analysis path;\n  copy durable conclusions into `perf/optimization_status.md`. Do not commit\n  large rocprof traces.",
+      "commands_block": "scripts/bench\nbash analysis/<family>/<target>/benchmark.sh\npython3 analysis/<family>/<target>/test_python.py\nrocprofv3 --att=true --att-library-path /opt/rocm/lib -d <trace-dir> -- <command>",
+      "profiler_line": "Use `docs/profiling/` helpers when timing does not explain a bottleneck. Record\nthe trace path and conclusion, not the full trace.",
+      "claude_runtime": "ROCm runtime",
+      "settings_allow_extra": [
+        "Bash(hipcc:*)",
+        "Bash(rocminfo:*)",
+        "Bash(rocm-smi:*)",
+        "Bash(scripts/bench:*)"
+      ],
+      "slots": {
+        "read-first-extras": "- Existing benchmark material under `analysis/` and profiling material under\n  `docs/profiling/`.\n- Parity work list: `docs/metal-cpu-parity-gaps.md` (Metal/CPU gap, in progress)\n  and `docs/cuda-to-cdna3-port-status.md` (CUDA port, complete).",
+        "backend-notes": "## Kernel Harness\n\nNew kernel ports use the shared harness `kernels/common/cdna3_harness.cuh`\nrather than re-implementing the oracle/timing pattern: it supplies fp64-oracle\ncomparison at `../registry/tolerances.yaml` tolerances, a deterministic host\nRNG, wave64 reductions, and timing with median/min/max plus GB/s and TFLOP/s.\n`perf/harness/run_kernel_bench.sh <kernel-dir>` runs a harness, archives raw\noutput with GPU/ROCm/HIP/commit provenance, and emits a pre-filled notebook\nentry. Follow the layout of `kernels/pooling/pool_mean_rms_l2/variants/rocm_cdna3`:\na self-contained `<op>.cu` with an embedded oracle and `--bench` mode, a\nMakefile with `all`/`test`/`bench`/`clean`, and a `README.cdna3.md` recording\nthe math, the source ported from, the CDNA3 approach, and explicit non-ports.\n\nHarnesses must be torch-free standalone binaries: kernel objects link system\nROCm 7.2 and conflict with the torch wheel's ROCm 6.4 HSA symbols when\nco-loaded."
+      }
+    },
+    "xpu": {
+      "path": "QuixiCore-XPU",
+      "backend_display": "XPU",
+      "layout_bullet": "Repository layout: `docs/repository-structure.md`.",
+      "route_word": "public route",
+      "provenance_bullet": "Intel GPU target, oneAPI compiler, SYCL backend/runtime, Level Zero driver\n  when available, command line, warmups, iterations, median, and variance or\n  min/max.",
+      "runtime_phrase": "a suitable Intel GPU/SYCL runtime",
+      "factor_list": "work-group shape, subgroup count,\n  memory layout, local-memory staging, fusion, dequant strategy, routing\n  threshold, or specialization.",
+      "comparison_baselines": "Compare against oneDNN, Triton XPU, framework paths, naive decompositions, and\n  current XPU kernels where relevant.",
+      "store_bullet": "Store raw output under `perf/results/`; copy durable conclusions into\n  `perf/optimization_status.md`. Do not commit large profiler traces.",
+      "commands_block": "cmake --preset dev\ncmake --build --preset dev\nctest --preset dev\npython3 perf/bench_kernels.py --phase all --preset dev\npython3 perf/bench_kernels.py --phase all --preset sycl",
+      "profiler_line": "Use SYCL event profiling, Level Zero tooling, VTune, or oneAPI tools when timing\ndoes not explain a bottleneck. Record the trace path and conclusion, not the\nfull trace.",
+      "claude_runtime": "XPU runtime",
+      "settings_allow_extra": [
+        "Bash(cmake:*)",
+        "Bash(ctest:*)",
+        "Bash(icpx --version:*)",
+        "Bash(sycl-ls:*)"
+      ],
+      "slots": {
+        "backend-notes": "## The Two Gates\n\nNo change is a candidate unless it passes both gates in `perf/perf.md`: the\nfp64-oracle ctest suite and torch.xpu parity. A speedup that regresses either\ngate is not a win."
+      }
+    },
+    "gaudi": {
+      "path": "QuixiCore-Gaudi",
+      "backend_display": "Gaudi",
+      "layout_bullet": "Repository layout: `docs/repository-structure.md`.",
+      "route_word": "public route",
+      "provenance_bullet": "Gaudi target, SynapseAI version, HPU framework version, driver/runtime\n  versions, command line, warmups, iterations, median, and variance or min/max.",
+      "runtime_phrase": "a suitable Gaudi/SynapseAI runtime",
+      "factor_list": "graph granularity, kernel geometry,\n  memory layout, TPC/MME split, fusion, dequant strategy, routing threshold, or\n  specialization.",
+      "comparison_baselines": "Compare against Habana PyTorch/HPU framework paths, SynapseAI/library routes,\n  naive decompositions, and current Gaudi kernels where relevant.",
+      "store_bullet": "Store raw output under `perf/results/`; copy durable conclusions into\n  `perf/optimization_status.md`. Do not commit large profiler traces.",
+      "commands_block": "cmake --preset dev\ncmake --build --preset dev\nctest --preset dev\npython3 perf/bench_kernels.py --phase all --preset dev\npython3 perf/bench_kernels.py --phase all --preset synapseai",
+      "profiler_line": "Use SynapseAI, HPU, TPC, or framework profiling when timing does not explain a\nbottleneck. Record the trace path and conclusion, not the full trace.",
+      "claude_runtime": "Gaudi runtime",
+      "settings_allow_extra": [
+        "Bash(cmake:*)",
+        "Bash(ctest:*)",
+        "Bash(hl-smi:*)"
+      ],
+      "slots": {}
+    },
+    "cpu": {
+      "path": "QuixiCore-CPU",
+      "backend_display": "CPU",
+      "layout_bullet": "Repository layout: `docs/architecture.md`.",
+      "route_word": "public route",
+      "provenance_bullet": "CPU model, core count, ISA target, OS, compiler and flags, thread count,\n  command line, warmups, iterations, median, and variance or min/max.",
+      "runtime_phrase": "a suitable CPU build/benchmark toolchain",
+      "factor_list": "tile/block shape, ISA dispatch, memory\n  layout, threading/affinity, fusion, dequant strategy, routing threshold, or\n  specialization.",
+      "comparison_baselines": "Compare against optimized library paths (Accelerate/BLAS, oneDNN where\n  available), naive decompositions, and current CPU kernels where relevant.",
+      "store_bullet": "Store raw output under `perf/results/`; copy durable conclusions into\n  `perf/optimization_status.md`. Do not commit large profiler traces.",
+      "commands_block": "cmake --preset perf && cmake --build --preset perf\nctest --preset test\nscripts/bench --preset quick --kernel <kernel>\nscripts/bench --out-dir \"perf/results/$(date +%F)/<label>\"",
+      "profiler_line": "Use Instruments (macOS), `perf` (Linux), or compiler vectorization reports when\ntiming does not explain a bottleneck. Record the trace path and conclusion, not\nthe full trace.",
+      "claude_runtime": "CPU build/benchmark toolchain",
+      "settings_allow_extra": [
+        "Bash(cmake:*)",
+        "Bash(ctest:*)",
+        "Bash(scripts/bench:*)",
+        "Bash(sysctl -n:*)"
+      ],
+      "slots": {}
+    }
+  }
+}

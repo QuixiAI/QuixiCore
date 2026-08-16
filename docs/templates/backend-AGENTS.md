@@ -1,0 +1,147 @@
+<!-- qx:section header -->
+# Agent Instructions
+
+This is the QuixiCore {{backend_display}} backend. Kernel work must be correctness-first,
+measurement-driven, and recorded in the performance notebook.
+<!-- qx:section read-first -->
+## Read First
+
+- User-facing overview: `README.md`.
+- {{layout_bullet}}
+- Performance operating guide: `perf/perf.md`.
+- Established findings: `perf/findings.md` — read before proposing any
+  experiment; do not re-derive or retry anything listed there without new
+  evidence.
+- Idea backlog: `perf/backlog.md` — pick the next experiment from here; update
+  it when you finish one.
+- Optimization notebook: `perf/optimization_status.md`.
+- Baseline index: `perf/baseline_status.md`.
+- Kernel metadata: `.quixicore/kernels.yaml` and
+  `.quixicore/quant-formats.yaml`.
+<!-- qx:slot read-first-extras -->
+<!-- qx:slot backend-notes -->
+<!-- qx:section perf-gate -->
+## Performance Optimization Requirement
+
+Before committing any kernel implementation, kernel routing change, benchmark
+change, or performance claim, the agent must complete at least one focused
+performance optimization run on an affected kernel.
+
+A valid run includes:
+
+- The kernel, {{route_word}}, dtype/format, and shape set.
+- Correctness for the touched path.
+- Baseline/current timing and candidate timing when testing a variant.
+- {{provenance_bullet}}
+- A keep/reject decision in `perf/optimization_status.md`.
+
+If {{runtime_phrase}} is unavailable, do not commit a kernel
+optimization or speedup claim. Stop and report the blocker, or restrict the
+commit to docs/scaffolding with no performance claim.
+
+Pure documentation and metadata-only commits may skip the kernel perf run, but
+they must not claim a performance improvement.
+<!-- qx:section evidence-rules -->
+## Evidence Rules
+
+- A run that times out or crashes is INCONCLUSIVE — never a rejection and never
+  a win. Record it as INCONCLUSIVE with the timeout or failure mode.
+- Only completed runs count as measurements. Never extrapolate from partial
+  iterations or a killed benchmark.
+- Report median plus variance or min/max from the stated warmup/iteration
+  counts. If the baseline and candidate ranges overlap, there is no claim —
+  rerun with more iterations or record INCONCLUSIVE.
+- Never compare numbers taken on different hosts, drivers, or toolchains
+  without saying so in the same sentence.
+- Notebook verdict vocabulary: LANDED, KEPT, REJECTED, CANDIDATE, DEFERRED,
+  INCONCLUSIVE, MIXED, RECORDED.
+<!-- qx:section how-to-optimize -->
+## How To Optimize
+
+- Start from `perf/perf.md`; form a bottleneck hypothesis before editing.
+- Change one meaningful factor at a time: {{factor_list}}
+- {{comparison_baselines}}
+- Keep only wins that pass correctness, improve realistic priority shapes, and
+  do not regress supported edge shapes or tolerances.
+- {{store_bullet}}
+<!-- qx:section idea-selection -->
+## Idea Selection (The Beam)
+
+- Keep `perf/backlog.md` to 3-5 active idea families, best first. Each family
+  carries a parent result, hypothesis, evidence so far, next action, and kill
+  criteria.
+- Pick the next experiment from the top of the beam unless the user directs
+  otherwise. Do not run a single-incumbent hill climb on one idea.
+- Do not kill a family on one failed singleton. If two ideas are individually
+  neutral but touch independent costs, try the combination before retiring
+  either.
+- When an experiment concludes, update the beam (advance or kill) and promote
+  durable conclusions to `perf/findings.md`. When a kill criterion fires,
+  record the kill and its reason in `perf/findings.md` so it is never retried.
+- New ideas that surface mid-run go to the backlog, not into scope creep.
+<!-- qx:section useful-commands -->
+## Useful Commands
+
+```bash
+{{commands_block}}
+```
+
+{{profiler_line}}
+<!-- qx:section escalation -->
+## Escalation Protocol
+
+- Stop and report to the user instead of improvising when required
+  hardware/runtime is unavailable, when branch or upstream state is ambiguous,
+  or when a correctness gate and a perf result conflict.
+- Use subagents for bulk reading (notebooks over ~1,000 lines), broad reference
+  searches, and multi-config sweeps. Subagents report numbers with full
+  provenance; the primary agent writes the notebook entry.
+- After two consecutive INCONCLUSIVE runs on one hypothesis, stop and present
+  the data rather than rerunning a third time.
+- When stuck (repeated rejects or sub-bar wins), re-read `perf/findings.md`,
+  profile before guessing again, and prefer one structural change from a
+  different beam family over another parameter retune.
+<!-- qx:section git-policy -->
+## Git Publishing Policy
+
+- Never create, switch, rename, or choose a branch unless the user explicitly
+  requests it. The user owns branch selection.
+- Never create a pull request unless the user explicitly requests one.
+- When asked to "commit and push," commit on the branch that is already checked
+  out and push that same branch to its configured upstream.
+- If the current branch has no upstream, pushing it is blocked, or branch
+  selection is ambiguous, stop and ask the user rather than creating or
+  switching branches or opening a pull request.
+<!-- qx:section build-policy -->
+## Build Artifact Policy
+
+- Keep generated build artifacts under one repository-local `build/` root, with
+  incompatible configurations isolated as `build/<profile>/`.
+- Do not create top-level task-, agent-, experiment-, or architecture-named
+  build directories.
+- Add a reusable preset or wrapper for a lasting configuration; use
+  `build/scratch/` for a temporary experiment and remove it afterward.
+- Build trees are disposable. Never treat one as durable correctness or
+  performance evidence; record evidence under the documented `perf/` paths.
+<!-- qx:section notebook-discipline -->
+## Notebook Discipline
+
+- `perf/optimization_status.md` is append-only and ordered oldest-first. Never
+  rewrite or reorder existing entries.
+- New entry headings use the format `## YYYY-MM-DD: <kernel or pass> — VERDICT`
+  with a verdict from the Evidence Rules vocabulary.
+- After appending an entry, regenerate the index:
+  `python3 ../tools/perf_notebook.py index perf/optimization_status.md`
+  (run from this repository root; adjust the path if the umbrella checkout is
+  a sibling rather than the parent directory).
+- Distilled truths go to `perf/findings.md`; queued ideas go to
+  `perf/backlog.md`; the notebook holds the full evidence.
+<!-- qx:section hygiene -->
+## Engineering Hygiene
+
+- Check `git status` before editing. Do not revert user changes.
+- Keep backend-local optimizations behind the public QuixiCore contract.
+- Update metadata, tests, docs, and bindings when changing public behavior.
+- Do not import reference implementation code unless licensing and provenance
+  have been reviewed.
+- Keep commits scoped and descriptive.
